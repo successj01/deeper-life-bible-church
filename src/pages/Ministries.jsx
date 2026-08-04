@@ -99,8 +99,8 @@ const Ministries = () => {
               return (
 
                 <div
-                  key={index}
-                  className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition duration-300"
+                  key={ministry.title}
+                  className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl translate-y-2 transition duration-300"
                 >
 
 
@@ -136,6 +136,7 @@ const Ministries = () => {
         </div>
 
       </section>
+
 
 
 
