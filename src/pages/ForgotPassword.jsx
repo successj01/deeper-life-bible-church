@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -12,30 +13,30 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     setLoading(true);
+    setMessage("");
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/forgot-password",
+
+      const response = await axiosInstance.post(
+        "/auth/forgot-password",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-          }),
+          email,
         }
       );
 
 
-      const data = await response.json();
-
-      setMessage(data.message);
+      setMessage(response.data.message);
 
 
     } catch (error) {
 
-      setMessage("Unable to connect to server");
+      console.error(error);
+
+      setMessage(
+        error.response?.data?.message ||
+        "Unable to connect to server"
+      );
+
 
     } finally {
 
@@ -86,7 +87,7 @@ const ForgotPassword = () => {
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 outline-none"
               required
             />
@@ -99,13 +100,13 @@ const ForgotPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-6 bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            className="w-full mt-6 bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
           >
 
             {
               loading
-              ? "Sending..."
-              : "Send Reset Link"
+                ? "Sending..."
+                : "Send Reset Link"
             }
 
           </button>
