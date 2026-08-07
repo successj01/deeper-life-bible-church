@@ -2,19 +2,19 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "John David",
+    name: "Bro Success ",
     role: "Church Member",
     message:
       "Deeper Life Bible Church has helped me grow spiritually through God's word, prayer, and fellowship.",
   },
   {
-    name: "Grace Emmanuel",
+    name: "Brother Micheal ",
     role: "Youth Member",
     message:
       "The teachings and programs have strengthened my faith and helped me discover my purpose in Christ.",
   },
   {
-    name: "Michael James",
+    name: "Bro Caleb ",
     role: "Member",
     message:
       "A welcoming church where believers can grow, serve, and experience God's love.",

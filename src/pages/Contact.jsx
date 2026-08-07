@@ -81,8 +81,8 @@ const Contact = () => {
                     Church Address
                   </h3>
 
-                  <a href="https://maps.google.com/?q=Deeper+Life+Bible+Church+International+Headquarters%2C+Gbagada+Lagos" target="_blank" rel="noopener noreferrer" className="text-gray-600 font-poppins">
-                    Deeper Life Bible Church International Headquarters,Gbagada Lagos
+                  <a href="https://maps.google.com/?q=Deeper+Life+Bible+Church+Mount+Zion+Maiyegun" target="_blank" rel="noopener noreferrer" className="text-gray-600 font-poppins">
+                    Deeper Life Bible Church mount zion Maiyegun
                   </a>
                 </div>
 
@@ -105,7 +105,7 @@ const Contact = () => {
                   </h3>
 
                   <p className="text-gray-600 font-poppins">
-                    +234 8143952549
+                    +234 8071360499
                   </p>
                 </div>
 

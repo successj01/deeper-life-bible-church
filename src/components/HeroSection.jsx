@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, PlayCircle } from "lucide-react";
-import churchAbout from "../assets/images/church-about.jpg";
 import { TypeAnimation } from "react-type-animation";
+import churchAbout from "../assets/images/Deeper_Life-church.png";
 
 const HeroSection = () => {
   return (

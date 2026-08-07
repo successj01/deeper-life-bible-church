@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,32 +14,30 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-
-      const response = await axiosInstance.post(
-        "/auth/forgot-password",
+      const response = await fetch(
+        "https://deeper-life-church-backend-3.onrender.com/api/auth/forgot-password",
         {
-          email,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
         }
       );
 
+      const data = await response.json();
 
-      setMessage(response.data.message);
-
+      setMessage(data.message);
 
     } catch (error) {
-
       console.error(error);
 
-      setMessage(
-        error.response?.data?.message ||
-        "Unable to connect to server"
-      );
-
+      setMessage("Unable to connect to server");
 
     } finally {
-
       setLoading(false);
-
     }
   };
 
@@ -51,23 +47,19 @@ const ForgotPassword = () => {
 
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
 
-
         <h2 className="text-3xl font-bold text-center text-blue-900 font-saira">
           Forgot Password
         </h2>
-
 
         <p className="text-center text-gray-500 mt-2 font-poppins">
           Enter your email to reset your password
         </p>
 
 
-
         <form
           onSubmit={handleSubmit}
           className="mt-6"
         >
-
 
           <label className="block mb-2 text-gray-700 font-medium">
             Email
@@ -76,12 +68,10 @@ const ForgotPassword = () => {
 
           <div className="flex items-center border rounded-lg px-3">
 
-
             <Mail
               size={20}
               className="text-gray-400"
             />
-
 
             <input
               type="email"
@@ -92,9 +82,7 @@ const ForgotPassword = () => {
               required
             />
 
-
           </div>
-
 
 
           <button
@@ -102,18 +90,11 @@ const ForgotPassword = () => {
             disabled={loading}
             className="w-full mt-6 bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
           >
-
-            {
-              loading
-                ? "Sending..."
-                : "Send Reset Link"
-            }
-
+            {loading ? "Sending..." : "Send Reset Link"}
           </button>
 
 
         </form>
-
 
 
         {message && (
@@ -121,7 +102,6 @@ const ForgotPassword = () => {
             {message}
           </p>
         )}
-
 
 
         <Link
@@ -133,7 +113,6 @@ const ForgotPassword = () => {
 
 
       </div>
-
 
     </section>
   );
