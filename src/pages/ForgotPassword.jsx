@@ -1,10 +1,13 @@
+```jsx
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -12,35 +15,43 @@ const ForgotPassword = () => {
 
     setLoading(true);
     setMessage("");
+    setSuccess(false);
 
     try {
-      const response = await fetch(
-        "https://deeper-life-church-backend-3.onrender.com/api/auth/forgot-password",
+      const response = await axiosInstance.post(
+        "/auth/forgot-password",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-          }),
+          email,
         }
       );
 
-      const data = await response.json();
+      const data = response.data;
 
-      setMessage(data.message);
-
+      if (data.success) {
+        setSuccess(true);
+        setMessage(data.message);
+      } else {
+        setSuccess(false);
+        setMessage(
+          data.message || "Unable to send reset email."
+        );
+      }
     } catch (error) {
-      console.error(error);
+      console.error(
+        "FORGOT PASSWORD ERROR:",
+        error.response?.data || error.message
+      );
 
-      setMessage("Unable to connect to server");
+      setSuccess(false);
 
+      setMessage(
+        error.response?.data?.message ||
+          "Unable to connect to server."
+      );
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
@@ -55,7 +66,6 @@ const ForgotPassword = () => {
           Enter your email to reset your password
         </p>
 
-
         <form
           onSubmit={handleSubmit}
           className="mt-6"
@@ -64,7 +74,6 @@ const ForgotPassword = () => {
           <label className="block mb-2 text-gray-700 font-medium">
             Email
           </label>
-
 
           <div className="flex items-center border rounded-lg px-3">
 
@@ -84,25 +93,29 @@ const ForgotPassword = () => {
 
           </div>
 
-
           <button
             type="submit"
             disabled={loading}
             className="w-full mt-6 bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
           >
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading
+              ? "Sending..."
+              : "Send Reset Link"}
           </button>
-
 
         </form>
 
-
         {message && (
-          <p className="text-center mt-4 text-green-600">
+          <p
+            className={`text-center mt-4 ${
+              success
+                ? "text-green-600"
+                : "text-red-600"
+            }`}
+          >
             {message}
           </p>
         )}
-
 
         <Link
           to="/login"
@@ -111,12 +124,11 @@ const ForgotPassword = () => {
           Back to Login
         </Link>
 
-
       </div>
 
     </section>
   );
 };
 
-
 export default ForgotPassword;
+```
