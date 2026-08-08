@@ -26,11 +26,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.post(
-        "/auth/login",
-        formData
-      );
-
+      const response = await axiosInstance.post("/auth/login", formData);
       const data = response.data;
 
       if (data.success) {
@@ -47,15 +43,10 @@ const Login = () => {
         alert(data.message || "Login failed.");
       }
     } catch (error) {
-      console.error(
-        "LOGIN ERROR:",
-        error.response?.data || error.message
-      );
-
-      alert(
-        error.response?.data?.message ||
-          "Unable to connect to the server."
-      );
+      console.error("LOGIN ERROR:", error.response?.data || error.message);
+      const errorMessage =
+        error.response?.data?.message || "Unable to connect to the server.";
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -63,7 +54,6 @@ const Login = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center">
-
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -74,9 +64,7 @@ const Login = () => {
       <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative z-10 w-full max-w-md px-6">
-
         <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-8">
-
           <div className="text-center mb-6">
             <h2 className="text-3xl font-bold text-blue-900 font-saira">
               Welcome Back
@@ -88,18 +76,13 @@ const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
-
             <div className="mb-5">
               <label className="block text-gray-700 mb-2 font-medium">
                 Email
               </label>
 
               <div className="flex items-center border rounded-lg px-3">
-
-                <Mail
-                  size={20}
-                  className="text-gray-400"
-                />
+                <Mail size={20} className="text-gray-400" />
 
                 <input
                   type="email"
@@ -110,22 +93,16 @@ const Login = () => {
                   className="w-full p-3 outline-none"
                   required
                 />
-
               </div>
             </div>
 
             <div className="mb-6">
-
               <label className="block text-gray-700 mb-2 font-medium">
                 Password
               </label>
 
               <div className="flex items-center border rounded-lg px-3">
-
-                <Lock
-                  size={20}
-                  className="text-gray-400"
-                />
+                <Lock size={20} className="text-gray-400" />
 
                 <input
                   type={showPassword ? "text" : "password"}
@@ -139,17 +116,10 @@ const Login = () => {
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowPassword(!showPassword)
-                  }
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
-                    <EyeOff size={20} />
-                  ) : (
-                    <Eye size={20} />
-                  )}
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
-
               </div>
             </div>
 
@@ -169,12 +139,9 @@ const Login = () => {
                 Forgot Password?
               </Link>
             </div>
-
           </form>
-
         </div>
       </div>
-
     </section>
   );
 };

@@ -17,12 +17,9 @@ const ForgotPassword = () => {
     setSuccess(false);
 
     try {
-      const response = await axiosInstance.post(
-        "/auth/forgot-password",
-        {
-          email,
-        }
-      );
+      const response = await axiosInstance.post("/auth/forgot-password", {
+        email,
+      });
 
       const data = response.data;
 
@@ -31,9 +28,7 @@ const ForgotPassword = () => {
         setMessage(data.message);
       } else {
         setSuccess(false);
-        setMessage(
-          data.message || "Unable to send reset email."
-        );
+        setMessage(data.message || "Unable to send reset email.");
       }
     } catch (error) {
       console.error(
@@ -42,21 +37,19 @@ const ForgotPassword = () => {
       );
 
       setSuccess(false);
-
       setMessage(
-        error.response?.data?.message ||
-          "Unable to connect to server."
+        error.response?.data?.message || "Unable to connect to server."
       );
     } finally {
       setLoading(false);
     }
   };
 
+  const messageColorClass = success ? "text-green-600" : "text-red-600";
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
-
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-
         <h2 className="text-3xl font-bold text-center text-blue-900 font-saira">
           Forgot Password
         </h2>
@@ -65,21 +58,13 @@ const ForgotPassword = () => {
           Enter your email to reset your password
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="mt-6"
-        >
-
+        <form onSubmit={handleSubmit} className="mt-6">
           <label className="block mb-2 text-gray-700 font-medium">
             Email
           </label>
 
           <div className="flex items-center border rounded-lg px-3">
-
-            <Mail
-              size={20}
-              className="text-gray-400"
-            />
+            <Mail size={20} className="text-gray-400" />
 
             <input
               type="email"
@@ -89,7 +74,6 @@ const ForgotPassword = () => {
               className="w-full p-3 outline-none"
               required
             />
-
           </div>
 
           <button
@@ -97,34 +81,20 @@ const ForgotPassword = () => {
             disabled={loading}
             className="w-full mt-6 bg-blue-900 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
           >
-            {loading
-              ? "Sending..."
-              : "Send Reset Link"}
+            {loading ? "Sending..." : "Send Reset Link"}
           </button>
-
         </form>
 
         {message && (
-          <p
-            className={`text-center mt-4 ${
-              success
-                ? "text-green-600"
-                : "text-red-600"
-            }`}
-          >
+          <p className={`text-center mt-4 ${messageColorClass}`}>
             {message}
           </p>
         )}
 
-        <Link
-          to="/login"
-          className="block text-center mt-5 text-blue-900"
-        >
+        <Link to="/login" className="block text-center mt-5 text-blue-900">
           Back to Login
         </Link>
-
       </div>
-
     </section>
   );
 };
