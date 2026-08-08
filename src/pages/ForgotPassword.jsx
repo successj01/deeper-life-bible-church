@@ -1,4 +1,3 @@
-```jsx
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -131,4 +130,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-```
